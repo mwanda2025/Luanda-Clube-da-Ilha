@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luanda Clube da Ilha</title>
+    <!-- Fonte Inter para um visual moderno e limpo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS para um design responsivo e rápido -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FFFFFF; /* Fundo branco para a clareza */
+        }
+        .header-bg {
+            background-color: #0050A0; /* Azul principal do clube */
+        }
+        .text-gold {
+            color: #FFD700; /* Dourado */
+        }
+        .bg-gold {
+            background-color: #FFD700; /* Dourado */
+        }
+        .btn {
+            @apply px-6 py-3 rounded-full font-bold transition-all duration-300;
+        }
+        .btn-primary {
+            @apply bg-gold text-[#0050A0] hover:bg-[#FFC400];
+        }
+        .btn-secondary {
+            @apply bg-transparent border-2 border-gold text-gold hover:bg-gold hover:text-[#0050A0];
+        }
+        .wave-bg {
+            background: url("https://placehold.co/1920x1080/0050A0/FFFFFF?text=Ondas+do+Mar") no-repeat center center;
+            background-size: cover;
+        }
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Estilos para a galeria, garantindo responsividade */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+            gap: 1rem;
+        }
+        @media (min-width: 640px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+        @media (min-width: 1024px) {
+            .gallery-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+        .player-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+        }
+    </style>
+</head>
+<body class="bg-[#F0F2F5]">
+
+    <!-- Cabeçalho (Header) Fixo -->
+    <header class="fixed top-0 left-0 right-0 header-bg z-50 shadow-lg">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <!-- Logo do Clube -->
+            <a href="#home" class="flex items-center space-x-2">
+                <img src="https://placehold.co/64x64/FFD700/0050A0?text=LCI" alt="Logótipo do Luanda Clube da Ilha" class="h-12 w-12 rounded-full border-2 border-white">
+                <h1 class="text-white text-2xl font-extrabold tracking-tight hidden md:block">Luanda Clube da Ilha</h1>
+            </a>
+
+            <!-- Menu de Navegação -->
+            <ul class="flex space-x-6 text-white font-semibold hidden md:flex">
+                <li><a href="#home" class="hover:text-gold transition-colors">Início</a></li>
+                <li><a href="#about" class="hover:text-gold transition-colors">Sobre Nós</a></li>
+                <li><a href="#team" class="hover:text-gold transition-colors">Equipa</a></li>
+                <li><a href="#schedule" class="hover:text-gold transition-colors">Resultados</a></li>
+                <li><a href="#news" class="hover:text-gold transition-colors">Notícias</a></li>
+                <li><a href="#gallery" class="hover:text-gold transition-colors">Galeria</a></li>
+                <li><a href="#store" class="hover:text-gold transition-colors">Loja</a></li>
+                <li><a href="#contact" class="hover:text-gold transition-colors">Contactos</a></li>
+            </ul>
+
+            <!-- Botão de Login e Menu Móvel -->
+            <div class="flex items-center space-x-4">
+                <button class="btn btn-secondary hidden md:block">Login</button>
+                <button class="text-white md:hidden" id="mobile-menu-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="4" x2="20" y1="12" y2="12" />
+                        <line x1="4" x2="20" y1="6" y2="6" />
+                        <line x1="4" x2="20" y1="18" y2="18" />
+                    </svg>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Menu Móvel (Escondido por padrão) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-[#004285] text-white">
+            <ul class="flex flex-col items-center py-4 space-y-2">
+                <li><a href="#home" class="block w-full text-center py-2 hover:bg-[#0050A0]">Início</a></li>
+                <li><a href="#about" class="block w-full text-center py-2 hover:bg-[#0050A0]">Sobre Nós</a></li>
+                <li><a href="#team" class="block w-full text-center py-2 hover:bg-[#0050A0]">Equipa</a></li>
+                <li><a href="#schedule" class="block w-full text-center py-2 hover:bg-[#0050A0]">Resultados</a></li>
+                <li><a href="#news" class="block w-full text-center py-2 hover:bg-[#0050A0]">Notícias</a></li>
+                <li><a href="#gallery" class="block w-full text-center py-2 hover:bg-[#0050A0]">Galeria</a></li>
+                <li><a href="#store" class="block w-full text-center py-2 hover:bg-[#0050A0]">Loja</a></li>
+                <li><a href="#contact" class="block w-full text-center py-2 hover:bg-[#0050A0]">Contactos</a></li>
+                <li class="w-full text-center py-2"><button class="btn btn-secondary">Login</button></li>
+            </ul>
+        </div>
+    </header>
+
+    <main class="pt-20">
+
+        <!-- Página Inicial (Home) -->
+        <section id="home" class="relative min-h-screen flex items-center justify-center text-white wave-bg">
+            <div class="absolute inset-0 bg-[#0050A0] opacity-80"></div>
+            <div class="relative z-10 text-center p-8">
+                <img src="https://placehold.co/400x250/FFD700/0050A0?text=Foto+Equipa" alt="Foto da Equipa" class="mx-auto rounded-lg shadow-2xl mb-8 transform hover:scale-105 transition-transform duration-500">
+                <h2 class="text-4xl md:text-6xl font-extrabold mb-4 scroll-reveal">Orgulho da Ilha, Força de Luanda!</h2>
+                <p class="text-lg md:text-xl font-medium mb-8 scroll-reveal">Luanda Clube da Ilha - A paixão que nos une, a ilha que nos inspira.</p>
+                
+                <!-- Contador Regressivo -->
+                <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-sm rounded-lg p-6 mb-8 scroll-reveal">
+                    <h3 class="text-xl font-bold mb-2">Próximo Jogo</h3>
+                    <div id="countdown" class="flex justify-center space-x-4 text-3xl md:text-5xl font-extrabold text-gold">
+                        <div class="flex flex-col items-center">
+                            <span id="days">00</span>
+                            <span class="text-sm font-light text-white">Dias</span>
+                        </div>
+                        <span class="text-white">:</span>
+                        <div class="flex flex-col items-center">
+                            <span id="hours">00</span>
+                            <span class="text-sm font-light text-white">Horas</span>
+                        </div>
+                        <span class="text-white">:</span>
+                        <div class="flex flex-col items-center">
+                            <span id="minutes">00</span>
+                            <span class="text-sm font-light text-white">Minutos</span>
+                        </div>
+                        <span class="text-white">:</span>
+                        <div class="flex flex-col items-center">
+                            <span id="seconds">00</span>
+                            <span class="text-sm font-light text-white">Segundos</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sobre Nós (About Us) -->
+        <section id="about" class="py-16 md:py-24 bg-[#0050A0] text-white">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-5xl font-extrabold text-center mb-12 scroll-reveal text-gold">Sobre Nós</h2>
+                <div class="flex flex-col md:flex-row items-center md:space-x-12">
+                    <div class="md:w-1/2 mb-8 md:mb-0 scroll-reveal">
+                        <p class="text-lg leading-relaxed mb-4">
+                            Fundado em 1985, o Luanda Clube da Ilha nasceu da paixão de uma comunidade unida pelo futebol. A nossa missão é promover o desporto, nutrir talentos locais e ser um farol de esperança e orgulho para a Ilha de Luanda.
+                        </p>
+                        <p class="text-lg leading-relaxed">
+                            Ao longo dos anos, celebramos inúmeras conquistas e construímos uma história de perseverança, espírito de equipa e dedicação. A nossa casa é o nosso campo, e o nosso coração bate ao ritmo das ondas do mar.
+                        </p>
+                    </div>
+                    <div class="md:w-1/2 grid grid-cols-2 gap-4 scroll-reveal">
+                        <img src="https://placehold.co/400x300/FFD700/0050A0?text=Foto+Antiga+1" alt="Foto antiga do clube" class="rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-500">
+                        <img src="https://placehold.co/400x300/0050A0/FFD700?text=Foto+Antiga+2" alt="Foto antiga do clube" class="rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-500">
+                        <img src="https://placehold.co/400x300/FFD700/0050A0?text=Conquista+1" alt="Foto de conquista do clube" class="rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-500">
+                        <img src="https://placehold.co/400x300/0050A0/FFD700?text=Conquista+2" alt="Foto de conquista do clube" class="rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-500">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Equipa (Team) -->
+        <section id="team" class="py-16 md:py-24 bg-[#F0F2F5]">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-5xl font-extrabold text-center mb-12 scroll-reveal text-[#0050A0]">A Nossa Equipa</h2>
+                <p class="text-center text-lg mb-12 max-w-2xl mx-auto scroll-reveal">Conheça os heróis que defendem as nossas cores em campo. Cada jogador é um pilar de força, dedicação e talento.</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Cartão do Jogador 1 -->
+                    <div class="bg-white rounded-lg shadow-lg p-6 text-center transform hover:scale-105 transition-transform duration-500 scroll-reveal">
+                        <img src="https://placehold.co/200x200/0050A0/FFD700?text=Jogador+1" alt="Foto do Jogador 1" class="mx-auto rounded-full w-32 h-32 mb-4 border-4 border-gold">
+                        <h3 class="text-xl font-bold text-[#0050A0]">Nome do Jogador</h3>
+                        <p class="text-sm text-gray-600 mb-2">Avançado | #10</p>
+                        <ul class="text-sm text-gray-500">
+                            <li>Jogos: 98</li>
+                            <li>Golos: 52</li>
+                            <li>Assistências: 15</li>
+                        </ul>
+                    </div>
+                    <!-- Cartão do Jogador 2 -->
+                    <div class="bg-white rounded-lg shadow-lg p-6 text-center transform hover:scale-105 transition-transform duration-500 scroll-reveal">
+                        <img src="https://placehold.co/200x200/0050A0/FFD700?text=Jogador+2" alt="Foto do Jogador 2" class="mx-auto rounded-full w-32 h-32 mb-4 border-4 border-gold">
+                        <h3 class="text-xl font-bold text-[#0050A0]">Nome do Jogador</h3>
+                        <p class="text-sm text-gray-600 mb-2">Defesa | #4</p>
+                        <ul class="text-sm text-gray-500">
+                            <li>Jogos: 120</li>
+                            <li>Golos: 8</li>
+                            <li>Assistências: 2</li>
+                        </ul>
+                    </div>
+                    <!-- Cartão do Jogador 3 -->
+                    <div class="bg-white rounded-lg shadow-lg p-6 text-center transform hover:scale-105 transition-transform duration-500 scroll-reveal">
+                        <img src="https://placehold.co/200x200/0050A0/FFD700?text=Jogador+3" alt="Foto do Jogador 3" class="mx-auto rounded-full w-32 h-32 mb-4 border-4 border-gold">
+                        <h3 class="text-xl font-bold text-[#0050A0]">Nome do Jogador</h3>
+                        <p class="text-sm text-gray-600 mb-2">Guarda-Redes | #1</p>
+                        <ul class="text-sm text-gray-500">
+                            <li>Jogos: 150</li>
+                            <li>Defesas: 450</li>
+                            <li>Folhas Limpas: 75</li>
+                        </ul>
+                    </div>
+                    <!-- Cartão do Jogador 4 -->
+                    <div class="bg-white rounded-lg shadow-lg p-6 text-center transform hover:scale-105 transition-transform duration-500 scroll-reveal">
+                        <img src="https://placehold.co/200x200/0050A0/FFD700?text=Jogador+4" alt="Foto do Jogador 4" class="mx-auto rounded-full w-32 h-32 mb-4 border-4 border-gold">
+                        <h3 class="text-xl font-bold text-[#0050A0]">Nome do Jogador</h3>
+                        <p class="text-sm text-gray-600 mb-2">Médio | #8</p>
+                        <ul class="text-sm text-gray-500">
+                            <li>Jogos: 110</li>
+                            <li>Golos: 20</li>
+                            <li>Assistências: 30</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Calendário e Resultados (Schedule) -->
+        <section id="schedule" class="py-16 md:py-24 bg-[#0050A0] text-white">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-5xl font-extrabold text-center mb-12 scroll-reveal text-gold">Calendário e Resultados</h2>
+                
+                <!-- Próximos Jogos -->
+                <div class="mb-12 scroll-reveal">
+                    <h3 class="text-2xl font-bold mb-6">Próximos Jogos</h3>
+                    <div class="space-y-4">
+                        <div class="bg-white text-[#0050A0] p-6 rounded-lg shadow-lg flex flex-col md:flex-row justify-between items-center transform hover:scale-105 transition-transform duration-500">
+                            <div class="flex items-center space-x-4 mb-4 md:mb-0">
+                                <span class="text-lg font-bold">12 NOV</span>
+                                <div>
+                                    <h4 class="font-bold">Luanda Clube da Ilha vs. Estrela do Mar</h4>
+                                    <p class="text-sm">Liga Provincial - 15:00h</p>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary">Detalhes</button>
+                        </div>
+                        <div class="bg-white text-[#0050A0] p-6 rounded-lg shadow-lg flex flex-col md:flex-row justify-between items-center transform hover:scale-105 transition-transform duration-500">
+                            <div class="flex items-center space-x-4 mb-4 md:mb-0">
+                                <span class="text-lg font-bold">20 NOV</span>
+                                <div>
+                                    <h4 class="font-bold">Atlético do Porto vs. Luanda Clube da Ilha</h4>
+                                    <p class="text-sm">Liga Provincial - 17:00h</p>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary">Detalhes</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resultados Anteriores -->
+                <div class="scroll-reveal">
+                    <h3 class="text-2xl font-bold mb-6">Resultados Anteriores</h3>
+                    <div class="space-y-4">
+                        <div class="bg-white text-[#0050A0] p-6 rounded-lg shadow-lg flex flex-col md:flex-row justify-between items-center transform hover:scale-105 transition-transform duration-500">
+                            <div class="flex items-center space-x-4 mb-4 md:mb-0">
+                                <h4 class="font-bold">Luanda Clube da Ilha 3 - 1 Clube dos Pescadores</h4>
+                            </div>
+                            <span class="text-sm font-semibold text-green-600">Vitória</span>
+                        </div>
+                        <div class="bg-white text-[#0050A0] p-6 rounded-lg shadow-lg flex flex-col md:flex-row justify-between items-center transform hover:scale-105 transition-transform duration-500">
+                            <div class="flex items-center space-x-4 mb-4 md:mb-0">
+                                <h4 class="font-bold">União da Praia 2 - 2 Luanda Clube da Ilha</h4>
+                            </div>
+                            <span class="text-sm font-semibold text-gray-600">Empate</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Notícias (News) -->
+        <section id="news" class="py-16 md:py-24 bg-[#F0F2F5]">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-5xl font-extrabold text-center mb-12 scroll-reveal text-[#0050A0]">Últimas Notícias</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Artigo de Notícia 1 -->
+                    <div class="bg-white rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-500 scroll-reveal">
+                        <img src="https://placehold.co/600x400/0050A0/FFD700?text=Notícia+1" alt="Notícia sobre transferência" class="rounded-t-lg w-full h-48 object-cover">
+                        <div class="p-6">
+                            <span class="text-sm text-gray-500">20 de Outubro, 2025</span>
+                            <h3 class="text-xl font-bold mt-2 mb-4 text-[#0050A0]">Novo Avançado Confirma-se!</h3>
+                            <p class="text-gray-700 text-sm">O Luanda Clube da Ilha anuncia com entusiasmo a contratação do novo avançado estrela...</p>
+                            <a href="#" class="mt-4 inline-block text-[#0050A0] font-semibold hover:text-gold">Ler Mais &rarr;</a>
+                        </div>
+                    </div>
+                    <!-- Artigo de Notícia 2 -->
+                    <div class="bg-white rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-500 scroll-reveal">
+                        <img src="https://placehold.co/600x400/FFD700/0050A0?text=Notícia+2" alt="Notícia sobre treino" class="rounded-t-lg w-full h-48 object-cover">
+                        <div class="p-6">
+                            <span class="text-sm text-gray-500">18 de Outubro, 2025</span>
+                            <h3 class="text-xl font-bold mt-2 mb-4 text-[#0050A0]">Treino de Alta Intensidade</h3>
+                            <p class="text-gray-700 text-sm">A equipa prepara-se com foco total para o próximo desafio da temporada...</p>
+                            <a href="#" class="mt-4 inline-block text-[#0050A0] font-semibold hover:text-gold">Ler Mais &rarr;</a>
+                        </div>
+                    </div>
+                    <!-- Artigo de Notícia 3 -->
+                    <div class="bg-white rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-500 scroll-reveal">
+                        <img src="https://placehold.co/600x400/0050A0/FFD700?text=Notícia+3" alt="Notícia sobre torneio" class="rounded-t-lg w-full h-48 object-cover">
+                        <div class="p-6">
+                            <span class="text-sm text-gray-500">15 de Outubro, 2025</span>
+                            <h3 class="text-xl font-bold mt-2 mb-4 text-[#0050A0]">O Caminho para a Final</h3>
+                            <p class="text-gray-700 text-sm">O Luanda Clube da Ilha avança para a semifinal do torneio de verão após uma vitória épica...</p>
+                            <a href="#" class="mt-4 inline-block text-[#0050A0] font-semibold hover:text-gold">Ler Mais &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Galeria (Gallery) -->
+        <section id="gallery" class="py-16 md:py-24 bg-[#0050A0] text-white">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-5xl font-extrabold text-center mb-12 scroll-reveal text-gold">Galeria de Fotos e Vídeos</h2>
+                <div class="gallery-grid">
+                    <img src="https://placehold.co/600x400/FFD700/0050A0?text=Jogo+1" alt="Foto de um jogo" class="rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-500 scroll-reveal">
+                    <img src="https://placehold.co/600x400/0050A0/FFD700?text=Treino" alt="Foto de um treino" class="rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-500 scroll-reveal">
+                    <img src="https://placehold.co/600x400/FFD700/0050A0?text=Celebração" alt="Foto de celebração" class="rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-500 scroll-reveal">
+                    <div class="rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-500 scroll-reveal">
+                        <!-- Placeholder para vídeo -->
+                        <iframe width="100%" height="300" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <img src="https://placehold.co/600x400/0050A0/FFD700?text=Eventos" alt="Foto de evento do clube" class="rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-500 scroll-reveal">
+                    <img src="https://placehold.co/600x400/FFD700/0050A0?text=Fãs" alt="Foto dos fãs" class="rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-500 scroll-reveal">
+                </div>
+            </div>
+        </section>
+        
+        <!-- Loja Online (Online Store) -->
+        <section id="store" class="py-16 md:py-24 bg-[#F0F2F5]">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-5xl font-extrabold text-center mb-12 scroll-reveal text-[#0050A0]">Loja Oficial do Clube</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Produto 1 -->
+                    <div class="bg-white rounded-lg shadow-lg p-6 text-center transform hover:scale-105 transition-transform duration-500 scroll-reveal">
+                        <img src="https://placehold.co/300x400/0050A0/FFD700?text=Camisola+Oficial" alt="Camisola do Luanda Clube da Ilha" class="mx-auto mb-4 w-full h-64 object-cover rounded-lg">
+                        <h3 class="text-xl font-bold text-[#0050A0]">Camisola Principal 2025/26</h3>
+                        <p class="text-lg text-gold font-semibold">50.000 Kz</p>
+                        <button class="btn btn-primary w-full mt-4">Comprar</button>
+                    </div>
+                    <!-- Produto 2 -->
+                    <div class="bg-white rounded-lg shadow-lg p-6 text-center transform hover:scale-105 transition-transform duration-500 scroll-reveal">
+                        <img src="https://placehold.co/300x400/FFD700/0050A0?text=Cachecol" alt="Cachecol do Luanda Clube da Ilha" class="mx-auto mb-4 w-full h-64 object-cover rounded-lg">
+                        <h3 class="text-xl font-bold text-[#0050A0]">Cachecol do Clube</h3>
+                        <p class="text-lg text-gold font-semibold">5.000 Kz</p>
+                        <button class="btn btn-primary w-full mt-4">Comprar</button>
+                    </div>
+                    <!-- Produto 3 -->
+                    <div class="bg-white rounded-lg shadow-lg p-6 text-center transform hover:scale-105 transition-transform duration-500 scroll-reveal">
+                        <img src="https://placehold.co/300x400/0050A0/FFD700?text=Boné" alt="Boné do Luanda Clube da Ilha" class="mx-auto mb-4 w-full h-64 object-cover rounded-lg">
+                        <h3 class="text-xl font-bold text-[#0050A0]">Boné Oficial</h3>
+                        <p class="text-lg text-gold font-semibold">10.000 Kz</p>
+                        <button class="btn btn-primary w-full mt-4">Comprar</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Patrocínios e Parceiros (Sponsors) -->
+        <section id="sponsors" class="py-16 md:py-24 bg-[#0050A0] text-white">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-5xl font-extrabold text-center mb-12 scroll-reveal text-gold">Os Nossos Patrocinadores</h2>
+                <div class="flex flex-wrap justify-center items-center gap-8">
+                    <img src="https://placehold.co/200x100/FFFFFF/0050A0?text=Patrocínio+1" alt="Patrocinador 1" class="h-16 w-auto opacity-75 hover:opacity-100 transition-opacity transform hover:scale-110 duration-300">
+                    <img src="https://placehold.co/200x100/FFFFFF/0050A0?text=Patrocínio+2" alt="Patrocinador 2" class="h-16 w-auto opacity-75 hover:opacity-100 transition-opacity transform hover:scale-110 duration-300">
+                    <img src="https://placehold.co/200x100/FFFFFF/0050A0?text=Patrocínio+3" alt="Patrocinador 3" class="h-16 w-auto opacity-75 hover:opacity-100 transition-opacity transform hover:scale-110 duration-300">
+                    <img src="https://placehold.co/200x100/FFFFFF/0050A0?text=Patrocínio+4" alt="Patrocinador 4" class="h-16 w-auto opacity-75 hover:opacity-100 transition-opacity transform hover:scale-110 duration-300">
+                </div>
+            </div>
+        </section>
+        
+        <!-- Contactos (Contacts) -->
+        <section id="contact" class="py-16 md:py-24 bg-[#F0F2F5]">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-5xl font-extrabold text-center mb-12 scroll-reveal text-[#0050A0]">Contactos</h2>
+                <div class="flex flex-col lg:flex-row lg:space-x-12">
+                    <!-- Formulário de Contacto -->
+                    <div class="lg:w-1/2 mb-12 lg:mb-0 scroll-reveal">
+                        <form class="bg-white p-8 rounded-lg shadow-lg">
+                            <div class="mb-4">
+                                <label for="name" class="block text-gray-700 font-bold mb-2">Nome</label>
+                                <input type="text" id="name" name="name" class="w-full p-3 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-gold">
+                            </div>
+                            <div class="mb-4">
+                                <label for="email" class="block text-gray-700 font-bold mb-2">Email</label>
+                                <input type="email" id="email" name="email" class="w-full p-3 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-gold">
+                            </div>
+                            <div class="mb-4">
+                                <label for="message" class="block text-gray-700 font-bold mb-2">Mensagem</label>
+                                <textarea id="message" name="message" rows="4" class="w-full p-3 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-gold"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-full">Enviar Mensagem</button>
+                        </form>
+                    </div>
+                    <!-- Informações de Contacto -->
+                    <div class="lg:w-1/2 scroll-reveal">
+                        <div class="bg-white p-8 rounded-lg shadow-lg h-full flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-2xl font-bold text-[#0050A0] mb-4">Informações</h3>
+                                <p class="text-gray-700 mb-2 flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-gold">
+                                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                                    </svg>
+                                    (244) 9XX-XXX-XXX
+                                </p>
+                                <p class="text-gray-700 mb-2 flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-gold">
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                                        <polyline points="22,6 12,13 2,6" />
+                                    </svg>
+                                    info@luandaclubedailha.com
+                                </p>
+                                <p class="text-gray-700 mb-4 flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-gold">
+                                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+                                        <circle cx="12" cy="9" r="3" />
+                                    </svg>
+                                    Luanda, Ilha de Luanda, Angola
+                                </p>
+                            </div>
+                            <!-- Mapa Placeholder -->
+                            <div class="h-64 rounded-lg overflow-hidden shadow-md">
+                                <iframe class="w-full h-full" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15758.114757656608!2d13.220199049999999!3d-8.80486855!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1a520e5055b81e8b%3A0xc07d17469a7f3408!2sIlha%20de%20Luanda!5e0!3m2!1spt-PT!2sao!4v1689255678235!5m2!1spt-PT!2sao" allowfullscreen="" loading="lazy"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Rodapé (Footer) -->
+    <footer class="bg-[#0050A0] text-white py-12">
+        <div class="container mx-auto px-4 text-center">
+            <h3 class="text-2xl font-bold mb-2">Luanda Clube da Ilha</h3>
+            <p class="text-gold font-semibold mb-4">Orgulho da Ilha, Força de Luanda!</p>
+            <div class="flex justify-center space-x-6 mb-6">
+                <a href="#" class="text-white hover:text-gold transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                </a>
+                <a href="#" class="text-white hover:text-gold transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                </a>
+                <a href="#" class="text-white hover:text-gold transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+                </a>
+            </div>
+            <p class="text-sm text-gray-300">&copy; 2025 Luanda Clube da Ilha. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript para funcionalidades interativas
+
+        // 1. Contador Regressivo para o Próximo Jogo
+        const countdownElement = document.getElementById('countdown');
+        const nextGameDate = new Date('November 12, 2025 15:00:00').getTime();
+
+        const updateCountdown = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = nextGameDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            if (distance < 0) {
+                clearInterval(updateCountdown);
+                countdownElement.innerHTML = '<span class="text-2xl">Jogo em andamento!</span>';
+            } else {
+                document.getElementById('days').innerText = days < 10 ? `0${days}` : days;
+                document.getElementById('hours').innerText = hours < 10 ? `0${hours}` : hours;
+                document.getElementById('minutes').innerText = minutes < 10 ? `0${minutes}` : minutes;
+                document.getElementById('seconds').innerText = seconds < 10 ? `0${seconds}` : seconds;
+            }
+        }, 1000);
+
+        // 2. Scroll Reveal para Animações
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.scroll-reveal').forEach(element => {
+            observer.observe(element);
+        });
+        
+        // 3. Menu Móvel
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // 4. Fechar menu móvel ao clicar num link
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+    </script>
+</body>
+</html>
